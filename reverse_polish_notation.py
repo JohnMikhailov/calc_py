@@ -1,4 +1,7 @@
-def get_rpn(symbols: list) -> (bool, str):
+from functions import get_function
+
+
+def get_rpn(symbols: list) -> str or list:
     output = []
     stack = []
     for symbol in symbols:
@@ -10,7 +13,7 @@ def get_rpn(symbols: list) -> (bool, str):
             while stack and stack[-1:][0] != '(':
                 output.append(stack.pop())
             if not stack:
-                return False, 'error: incorrect delimiter or parenthesis'
+                return 'error: incorrect delimiter or parenthesis'
             stack.pop()
         if __type(symbol) == 'binary':
             while stack and (
@@ -19,8 +22,8 @@ def get_rpn(symbols: list) -> (bool, str):
                 output.append(stack.pop())
             stack.append(symbol)
     if not contains_only_operations(stack):
-        return False, 'error: incorrect parenthesis'
-    return ''.join(output + stack[::-1])
+        return 'error: incorrect parenthesis'
+    return output + stack[::-1]
 
 
 def contains_only_operations(stack):
@@ -52,3 +55,23 @@ def __priority(symbol: str) -> int:
             '^': 3,
             '(': 0,
             ')': 0}.get(symbol, -1)
+
+
+def calculate(stack, symbol) -> None or float:
+    if not stack:
+        return None
+    func = get_function(symbol)
+    if func:
+        return func(stack)
+    return None
+
+
+def solve(rpn: str):
+    stack = []
+    for symbol in rpn:
+        if symbol.isdigit():
+            stack.append(symbol)
+        else:
+            stack = calculate(stack, symbol)
+
+
