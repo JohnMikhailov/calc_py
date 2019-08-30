@@ -62,7 +62,7 @@ def calculate(stack, symbol) -> None or float:
         return None
     func = get_function(symbol)
     if func:
-        return func(stack)
+        return func(*stack)
     return None
 
 
