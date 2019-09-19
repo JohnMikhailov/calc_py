@@ -11,5 +11,5 @@ def parse_symbols_to_list(input_string: str) -> list:
 
 
 path = 'input.txt'
-b, rpn = get_rpn(parse_symbols_to_list(get_inputs(path)[0]))
+rpn = get_rpn(parse_symbols_to_list(get_inputs(path)[0]))
 print(rpn)

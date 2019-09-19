@@ -66,12 +66,11 @@ def calculate(stack, symbol) -> None or float:
     return None
 
 
-def solve(rpn: str):
+def solve(rpn: str) -> float or str:
     stack = []
     for symbol in rpn:
         if symbol.isdigit():
             stack.append(symbol)
         else:
             stack = calculate(stack, symbol)
-
-
+    return stack[0] if stack else 'no results'
